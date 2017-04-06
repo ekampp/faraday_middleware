@@ -36,7 +36,7 @@ module FaradayMiddleware
 
     def call(env)
       params = { param_name => @token }.update query_params(env[:url])
-      token = params[param_name]
+      token = RequestStore.store[:oauth2_token]
 
       if token.respond_to?(:empty?) && !token.empty?
         case @token_type.downcase
